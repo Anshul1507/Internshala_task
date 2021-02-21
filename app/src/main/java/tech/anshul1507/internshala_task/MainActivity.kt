@@ -1,13 +1,13 @@
 package tech.anshul1507.internshala_task
 
+import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import tech.anshul1507.internshala_task.databinding.ActivityMainBinding
-import tech.anshul1507.internshala_task.home.HomeFragment
-import tech.anshul1507.internshala_task.login.LoginFragment
+import tech.anshul1507.internshala_task.ui.HomeFragment
 
 
 open class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package tech.anshul1507.internshala_task.login
+package tech.anshul1507.internshala_task.ui
 
 import android.content.Intent
 import android.os.Bundle
