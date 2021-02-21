@@ -6,6 +6,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import tech.anshul1507.internshala_task.databinding.ActivityMainBinding
+import tech.anshul1507.internshala_task.home.HomeFragment
 import tech.anshul1507.internshala_task.login.LoginFragment
 
 
@@ -30,7 +31,7 @@ open class MainActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
         //login fragment launch
-        val fragLogin = LoginFragment()
+        val fragLogin = HomeFragment()
         this.supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragLogin, "LoginFragment").commit()
 
