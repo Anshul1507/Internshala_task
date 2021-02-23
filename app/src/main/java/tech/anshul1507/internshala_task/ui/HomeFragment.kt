@@ -1,19 +1,26 @@
 package tech.anshul1507.internshala_task.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import tech.anshul1507.internshala_task.R
 import tech.anshul1507.internshala_task.adapter.NoteAdapter
 import tech.anshul1507.internshala_task.adapter.NotesItemClickListener
 import tech.anshul1507.internshala_task.databinding.FragmentHomeBinding
 import tech.anshul1507.internshala_task.entity.NoteModel
+
 
 class HomeFragment : Fragment(), NotesItemClickListener {
 
@@ -69,6 +76,9 @@ class HomeFragment : Fragment(), NotesItemClickListener {
             }
         }
 
+        //check listener for changing fab icon
+        checkInputTextChangeListener()
+
         binding.btnAddNote.setOnClickListener {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -100,8 +110,22 @@ class HomeFragment : Fragment(), NotesItemClickListener {
 
                 }
 
+            } else {
+                if (binding.etNoteTitle.text.isNullOrEmpty()) {
+                    Toast.makeText(requireContext(), "Enter title", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Enter note", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+    }
+
+    fun rotateAddBtn(v: View, rotate: Boolean): Boolean {
+        v.animate().setDuration(400)
+            .setListener(object : AnimatorListenerAdapter() {
+            })
+            .rotation(if (rotate) 360f else 0f)
+        return rotate
     }
 
     override fun onItemClicked(btnID: String, note: NoteModel) {
@@ -122,6 +146,61 @@ class HomeFragment : Fragment(), NotesItemClickListener {
                 //todo:: share related things
             }
         }
+    }
+
+    private fun checkInputTextChangeListener() {
+        binding.etNoteTitle.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s!!.isNotEmpty() && binding.etNoteText.text.isNotEmpty()) {
+                    rotateAddBtn(binding.btnAddNote, true)
+                    binding.btnAddNote.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_save_task_white
+                        )
+                    )
+                } else {
+                    rotateAddBtn(binding.btnAddNote, false)
+                    binding.btnAddNote.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_add_task_white
+                        )
+                    )
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
+        binding.etNoteText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s!!.isNotEmpty() && binding.etNoteTitle.text.isNotEmpty()) {
+                    rotateAddBtn(binding.btnAddNote, true)
+                    binding.btnAddNote.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_save_task_white
+                        )
+                    )
+                } else {
+                    rotateAddBtn(binding.btnAddNote, false)
+                    binding.btnAddNote.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_add_task_white
+                        )
+                    )
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+        })
     }
 
 }
