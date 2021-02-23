@@ -72,6 +72,14 @@ class HomeFragment : Fragment(), NotesItemClickListener {
 
         allNotes.observe(requireActivity(), {
             val noteList: List<NoteModel> = allNotes.value!!
+            if (noteList.isEmpty()) {
+                binding.emptyNoteLayout.visibility = View.VISIBLE
+                binding.rv.visibility = View.GONE
+
+            } else {
+                binding.emptyNoteLayout.visibility = View.GONE
+                binding.rv.visibility = View.VISIBLE
+            }
             it.let {
                 adapter.updateList(noteList)
             }
