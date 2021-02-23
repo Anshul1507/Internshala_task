@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import tech.anshul1507.internshala_task.MainActivity
 import tech.anshul1507.internshala_task.R
 import tech.anshul1507.internshala_task.adapter.NoteAdapter
 import tech.anshul1507.internshala_task.adapter.NotesItemClickListener
@@ -26,7 +27,7 @@ class HomeFragment : Fragment(), NotesItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: NoteAdapter
-    private var mailID = "test@gmail.com"
+    private lateinit var mailID: String
     private lateinit var homeViewModel: HomeFragmentViewModel
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
@@ -42,6 +43,7 @@ class HomeFragment : Fragment(), NotesItemClickListener {
 
         bottomSheetBehavior = BottomSheetBehavior.from<View>(binding.bottomSheetLayout)
 
+        mailID = MainActivity.acct.email.toString()
         binding.rv.layoutManager = LinearLayoutManager(context!!.applicationContext)
         adapter = NoteAdapter(this)
         binding.rv.adapter = adapter

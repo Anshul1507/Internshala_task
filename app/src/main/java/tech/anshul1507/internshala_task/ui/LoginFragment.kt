@@ -1,18 +1,22 @@
 package tech.anshul1507.internshala_task.ui
 
 import android.content.Intent
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import tech.anshul1507.internshala_task.MainActivity
+import tech.anshul1507.internshala_task.R
 import tech.anshul1507.internshala_task.databinding.FragmentLoginBinding
+
 
 class LoginFragment : Fragment() {
 
@@ -32,6 +36,7 @@ class LoginFragment : Fragment() {
         binding.signInButton.setOnClickListener {
             signIn()
         }
+
     }
 
     private fun signIn() {
@@ -58,8 +63,15 @@ class LoginFragment : Fragment() {
     }
 
     private fun updateUI(acc: GoogleSignInAccount?) {
-        //todo fragment transition to main UI
-        Log.e("test", "login success")
+        val fragHome = HomeFragment()
+        val editor: Editor = MainActivity.sharedPrefs.edit()
+        editor.putBoolean("is_signed", true)
+        editor.apply()
+        MainActivity.acct =
+            GoogleSignIn.getLastSignedInAccount(requireActivity().applicationContext) as GoogleSignInAccount
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragHome, "HomeFragment").commit()
+        requireActivity().actionBar?.title = acc?.displayName
     }
 
 }
