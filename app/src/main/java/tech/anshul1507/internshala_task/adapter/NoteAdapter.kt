@@ -18,7 +18,7 @@ class NoteAdapter(private val context: Context, private val listener: NotesItemC
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.findViewById<TextView>(R.id.title)
         val text = itemView.findViewById<TextView>(R.id.text)
-        val option = itemView.findViewById<ImageView>(R.id.item_option)
+//        val option = itemView.findViewById<ImageView>(R.id.item_option)
 
     }
 
@@ -30,9 +30,9 @@ class NoteAdapter(private val context: Context, private val listener: NotesItemC
                 false
             )
         )
-        viewHolder.option.setOnClickListener {
-            listener.onItemClicked(allNotes[viewHolder.adapterPosition])
-        }
+//        viewHolder.option.setOnClickListener {
+//            listener.onItemClicked(allNotes[viewHolder.adapterPosition])
+//        }
         return viewHolder
     }
 
