@@ -1,17 +1,17 @@
 package tech.anshul1507.internshala_task.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import tech.anshul1507.internshala_task.MainActivity
-import tech.anshul1507.internshala_task.adapter.NotesItemClickListener
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.item_notes.*
 import tech.anshul1507.internshala_task.adapter.NoteAdapter
+import tech.anshul1507.internshala_task.adapter.NotesItemClickListener
 import tech.anshul1507.internshala_task.databinding.FragmentHomeBinding
 import tech.anshul1507.internshala_task.entity.NoteModel
 
@@ -22,12 +22,18 @@ class HomeFragment : Fragment(), NotesItemClickListener {
     private var mailID = "test@gmail.com"
     private lateinit var homeViewModel: HomeFragmentViewModel
 
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+    private var preTitle: String = "Title"
+    private var preText: String = "Text"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        bottomSheetBehavior = BottomSheetBehavior.from<View>(binding.bottomSheetLayout)
 
         binding.rv.layoutManager = LinearLayoutManager(context!!.applicationContext)
         adapter = NoteAdapter(context!!.applicationContext, this)
@@ -57,11 +63,28 @@ class HomeFragment : Fragment(), NotesItemClickListener {
             }
         })
 
+        //todo get Intent for edit match and match if case
+        binding.etNoteTitle.setText(preTitle)
+        binding.etNoteText.setText(preText)
+
+        binding.bottomSheetLayout.setOnClickListener {
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+
         var cnt = 0
         binding.btnAddNote.setOnClickListener {
-            val noteItem = NoteModel("title $cnt", "text $cnt", mailID)
-            homeViewModel.insertNode(noteItem)
-            cnt++
+            //if bottom sheet expanded -> collapse on add/edit note
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                val noteItem = NoteModel("title $cnt", "text $cnt", mailID)
+                homeViewModel.insertNode(noteItem)
+                cnt++
+            } else {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+
         }
 
     }
