@@ -1,7 +1,7 @@
 package tech.anshul1507.internshala_task.ui
 
-import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -150,7 +150,15 @@ class HomeFragment : Fragment(), NotesItemClickListener {
                 homeViewModel.deleteNode(note)
             }
             "share" -> {
-                //todo:: share related things
+                //Share option
+                val share = Intent(Intent.ACTION_SEND)
+                share.type = "text/plain"
+                share.putExtra(Intent.EXTRA_SUBJECT, "Share via")
+
+                val shareMessage =
+                    "Note title: ${note.title} \nNote: ${note.text} \n~ ${MainActivity.acct.givenName}"
+                share.putExtra(Intent.EXTRA_TEXT, shareMessage)
+                startActivity(Intent.createChooser(share, "Share this note to someone"))
             }
         }
     }
