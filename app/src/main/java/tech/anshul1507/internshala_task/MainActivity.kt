@@ -1,7 +1,10 @@
 package tech.anshul1507.internshala_task
 
+import android.app.ActionBar
 import android.app.Application
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -22,8 +25,8 @@ open class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        setContentView(binding.root)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -35,6 +38,18 @@ open class MainActivity : AppCompatActivity() {
         this.supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragLogin, "LoginFragment").commit()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_option, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_log_out) {
+            //todo:: logout
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
