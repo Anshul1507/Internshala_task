@@ -10,20 +10,85 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="95dp"
         tools:listitem="@layout/item_notes" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_add_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/purple_500"
-        android:elevation="8dp"
-        android:foregroundTint="#fff"
-        android:src="@drawable/ic_add_task_white"
-        android:tint="@color/purple_700"
-        app:backgroundTint="@color/purple_700"
-        app:tint="@color/white" />
+    <LinearLayout
+        android:id="@+id/bottom_sheet_layout"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:background="@drawable/bg_bottom_sheet"
+        android:orientation="vertical"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="95dp"
+        app:layout_behavior="@string/bottom_sheet_behavior">
 
+        <RelativeLayout
+            android:id="@+id/option_layout"
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/view_horizontal"
+                android:layout_width="50dp"
+                android:layout_height="2dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:background="#1f000000" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/view_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/purple_500"
+                android:elevation="8dp"
+                android:foregroundTint="#fff"
+                android:src="@drawable/ic_add_task_white"
+                android:tint="@color/purple_700"
+                app:backgroundTint="@color/purple_700"
+                app:tint="@color/white" />
+
+            <View
+                android:id="@+id/view_horizontal_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#1f000000" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/et_note_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:hint="Title"
+            android:inputType="text"
+            android:textColor="@color/dark_grey"
+            android:textSize="26sp" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_note_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:hint="Write your note here"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

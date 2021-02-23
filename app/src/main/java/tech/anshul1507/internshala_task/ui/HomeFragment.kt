@@ -67,7 +67,10 @@ class HomeFragment : Fragment(), NotesItemClickListener {
     }
 
     override fun onItemClicked(note: NoteModel) {
-        homeViewModel.deleteNode(note)
+        note.text = "text"
+        note.title = "title"
+
+        homeViewModel.updateNode(note)
     }
 
 }
