@@ -42,10 +42,10 @@ open class MainActivity : AppCompatActivity() {
         //login fragment launch
         val fragLogin = LoginFragment()
         val fragHome = HomeFragment()
-        if(sharedPrefs.getBoolean("is_signed",false)) {
+        if (sharedPrefs.getBoolean("is_signed", false)) {
             this.supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragHome, "HomeFragment").commit()
-        }else {
+        } else {
             this.supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragLogin, "LoginFragment").commit()
         }
@@ -65,7 +65,7 @@ open class MainActivity : AppCompatActivity() {
 
     private fun showAlertDialog() {
         MaterialAlertDialogBuilder(this)
-            .setTitle("Logout from ${acct.displayName}'s Notes")
+            .setTitle("Logout from ${acct.givenName}'s Notes")
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }

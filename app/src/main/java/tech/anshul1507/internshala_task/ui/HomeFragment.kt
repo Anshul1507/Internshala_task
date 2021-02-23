@@ -9,11 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import tech.anshul1507.internshala_task.MainActivity
 import tech.anshul1507.internshala_task.R
@@ -43,6 +46,8 @@ class HomeFragment : Fragment(), NotesItemClickListener {
 
         bottomSheetBehavior = BottomSheetBehavior.from<View>(binding.bottomSheetLayout)
 
+        MainActivity.acct =
+            GoogleSignIn.getLastSignedInAccount(requireActivity().applicationContext) as GoogleSignInAccount
         mailID = MainActivity.acct.email.toString()
         binding.rv.layoutManager = LinearLayoutManager(context!!.applicationContext)
         adapter = NoteAdapter(this)
@@ -205,4 +210,9 @@ class HomeFragment : Fragment(), NotesItemClickListener {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title =
+            "Hey ${MainActivity.acct.givenName}"
+    }
 }

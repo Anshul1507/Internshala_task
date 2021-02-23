@@ -74,4 +74,16 @@ class LoginFragment : Fragment() {
         requireActivity().actionBar?.title = acc?.displayName
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.title =
+            "Hey ${MainActivity.acct.displayName}"
+    }
+
 }
