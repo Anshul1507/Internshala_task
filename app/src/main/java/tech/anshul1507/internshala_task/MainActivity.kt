@@ -43,7 +43,7 @@ open class MainActivity : AppCompatActivity() {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             requestPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
-        }else{
+        } else {
             requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
